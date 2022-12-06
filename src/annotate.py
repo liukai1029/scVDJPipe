@@ -1,16 +1,43 @@
+from os import listdir
+from os.path import isfile, join
 import os
-
-f_name_list = ["~/projects/single_B_miseq/FASTQ/SAM003330_LIB003809_2_S2_L001_merged.fastq"]
-
-
-def call_pyir_group(f_name_list):
-    for in_fname in f_name_list:
-        ext_name = ".fastq"
-        core_name = in_fname.replace(ext_name, "")
-        zipped_name = core_name+".tsv.gz"
-        unzipped_name = core_name+".tsv"
-        os.system(f"/bin/bash -c \"pyir -t fastq --igdata /pyir_data  -r Ig -s mouse -x /pyir/pyir/data/bin/igblastn_linux -o {core_name} --outfmt tsv {in_fname} \"")
-        #os.system(f"gzip -cd {zipped_name} > {unzipped_name}")
+import logging
 
 
-call_pyir_group(f_name_list)    
+#wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
+wd = "/export/home/kliu6/projects/single_B_miseq/annotate_test/"
+
+
+
+
+
+#logging.basicConfig(filename="/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/log.txt",
+logging.basicConfig(filename=f"{wd}log.txt",
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
+
+def call_pyir(f):
+        f_root = f.replace("_merged.fastq", "")
+        zipped_name = f_root+".tsv.gz"
+        unzipped_name = f_root+".tsv"
+        os.system(f"/bin/bash -c \"pyir -t fastq --igdata /pyir_data  -r Ig -s mouse -x /pyir/pyir/data/bin/igblastn_linux -o {f_root} --outfmt tsv {f} \"")
+        os.system(f"gzip -cd {zipped_name} > {unzipped_name}")
+
+        
+fl = [f for f in listdir(wd) if isfile(join(wd, f))]
+fl = [f for f in fl if f[-13:] == "_merged.fastq" ]
+fl = sorted(fl)
+fp = [wd+f for f in fl]
+
+
+logging.info(f"all merged files identified: {fp}")
+
+
+while fp:
+    input = fp.pop(0)
+    logging.info(f"start pyir for: {input}")
+    call_pyir(input)    
+    logging.info(f"complete pyir for: {input}")
