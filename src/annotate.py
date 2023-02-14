@@ -6,14 +6,16 @@ import logging
 
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
-wd = "/export/home/kliu6/projects/single_B_miseq/annotate_test/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/annotate_test/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_human/"
+wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
 
 
 
 
 
 #logging.basicConfig(filename="/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/log.txt",
-logging.basicConfig(filename=f"{wd}log.txt",
+logging.basicConfig(filename=f"{wd}log_annotation.txt",
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
@@ -23,7 +25,8 @@ def call_pyir(f):
         f_root = f.replace("_merged.fastq", "")
         zipped_name = f_root+".tsv.gz"
         unzipped_name = f_root+".tsv"
-        os.system(f"/bin/bash -c \"pyir -t fastq --igdata /pyir_data  -r Ig -s mouse -x /pyir/pyir/data/bin/igblastn_linux -o {f_root} --outfmt tsv {f} \"")
+        #os.system(f"/bin/bash -c \"pyir -t fastq --igdata /pyir_data  -r Ig -s mouse -x /pyir/pyir/data/bin/igblastn_linux -o {f_root} --outfmt tsv {f} \"")
+        os.system(f"/bin/bash -c \"pyir -t fastq --igdata /pyir_data  -r Ig -s human -x /pyir/pyir/data/bin/igblastn_linux -o {f_root} --outfmt tsv {f} \"")
         os.system(f"gzip -cd {zipped_name} > {unzipped_name}")
 
         

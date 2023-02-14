@@ -6,15 +6,17 @@ import pandas as pd
 import numpy as np
 
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/"
-wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/rc_test/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_human/"
+wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
 
 
 
 
 
 #logging.basicConfig(filename="/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/log.txt",
-logging.basicConfig(filename=f"{wd}log_agg.txt",
+logging.basicConfig(filename=f"{wd}log_aggregate.txt",
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',

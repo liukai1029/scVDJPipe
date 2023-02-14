@@ -8,7 +8,9 @@ import subprocess
 
 
 #wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ_subset_test/"
-wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ/"
+#wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ/"
+#wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FASTQ_human/"
+wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/FC1A/"
 
 logging.basicConfig(filename=f"{wd}log.txt",
                     filemode='a',
