@@ -9,7 +9,8 @@ import numpy as np
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/rc_test/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_human/"
-wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
+#wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
+wd = "/export/home/kliu6/projects/single_B_miseq/TL1A_BC003_genewiz_20230213/00_fastq/"
 
 
 
@@ -29,7 +30,7 @@ agg_fp = wd+"Main_Heavy_Light_Chains_Table.csv"
 
 
 def choose_major_chain(rc_fp, agg_fp):
-    rc = pd.read_csv(rc_fp, index_col = 0)
+    rc = pd.read_csv(rc_fp, index_col = 0,dtype={'d_call': 'str', 'd_family': 'str'})
     rc_major = rc.copy()
     rc_major = rc_major[rc_major['frequency']>0.01]
 
@@ -106,7 +107,6 @@ while rc_fp:
             logging.info(f"Read count file exist: {input}")
             logging.info(f"Start major chain selection: {input}")
             major_chains_by_input = choose_major_chain(input, agg_fp)
-
             if exists(agg_fp):
                 with open (agg_fp, "a") as f:
                     for i in range(major_chains_by_input.shape[0]):
