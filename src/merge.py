@@ -16,7 +16,7 @@ wd = "/fcrbiouatappn01/home/kliu6/projects/single_B_miseq/TL1A_BC003_genewiz_202
 
 
 #bbmap_dir = "/home/ubuntu/packages/bbmap/bbmerge.sh"
-bbmap_dir = "/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh"
+bbmerge_dir = "/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh"
 
 logging.basicConfig(filename=f"{wd}log.txt",
                     filemode='a',
@@ -45,8 +45,8 @@ while fp:
         fp.pop(fp.index(mate2+".fastq.gz"))
         logging.info(f"pair found:\n{mate1}\n{mate2}\n")
         mate_id = mate1.replace("_R1_001", "")
-        logging.info(f"/bin/bash -c \"/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'} 2>&1 | tee -a {wd}stdout.txt\"")
-        os.system(f"/bin/bash -c \"/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'} 2>&1 | tee -a {wd}stdout.txt\"")
+        logging.info(f"/bin/bash -c \"{bbmerge_dir} in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'} 2>&1 | tee -a {wd}stdout.txt\"")
+        os.system(f"/bin/bash -c \"{bbmerge_dir} in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'} 2>&1 | tee -a {wd}stdout.txt\"")
         #returned_text = subprocess.check_output(f"/bin/bash -c \"/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'}\"", shell=True, universal_newlines=True) 
         #import pdb; pdb.set_trace()
         #returned_text = subprocess.check_output(f"/fcrbiouatappn01/home/kliu6/packages/bbmap/bbmerge.sh in1={mate1+'.fastq.gz'} in2={mate2+'.fastq.gz'} out={mate_id+'_merged.fastq'} outu={mate_id+'_merge_failed.fastq'}", shell=True, universal_newlines=True) 
