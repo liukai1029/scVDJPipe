@@ -8,8 +8,8 @@ import logging
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/annotate_test/"
 #wd = "/export/home/kliu6/projects/single_B_miseq/FASTQ_human/"
-wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
-
+#wd = "/export/home/kliu6/projects/single_B_miseq/FC1A/"
+wd = "/export/home/kliu6/projects/single_B_miseq/TL1A_BC003_genewiz_20230213/00_fastq/"
 
 
 
@@ -35,12 +35,18 @@ fl = [f for f in fl if f[-13:] == "_merged.fastq" ]
 fl = sorted(fl)
 fp = [wd+f for f in fl]
 
+tsv_fl = [f for f in listdir(wd) if isfile(join(wd, f))]
+tsv_fl = [f for f in tsv_fl if f[-4:] == ".tsv" ]
+tsv_fl = [join(wd,f) for] f in tsv_fl]
 
 logging.info(f"all merged files identified: {fp}")
 
 
 while fp:
     input = fp.pop(0)
-    logging.info(f"start pyir for: {input}")
-    call_pyir(input)    
-    logging.info(f"complete pyir for: {input}")
+    if input[:-13]+".tsv" not in tsv_fl: # skip PyIR if tsv file already exist
+        logging.info(f"start pyir for: {input}")
+        call_pyir(input)    
+        logging.info(f"complete pyir for: {input}")
+    else:
+        logging.info(f"tsv file already exist: {input}")
